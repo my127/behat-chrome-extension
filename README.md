@@ -42,7 +42,7 @@ See https://gitlab.com/DMore/behat-chrome-skeleton for a fully working example.
 ```yaml
 default:
     extensions:
-        DMore\ChromeExtension\Behat\ChromeExtension: ~
+        DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
         Behat\MinkExtension:
             browser_name: chrome
             base_url: http://localhost
@@ -55,4 +55,3 @@ default:
 ## Contributing
 
 You are encouraged to fork this repository and contribute your own improvements.
-
