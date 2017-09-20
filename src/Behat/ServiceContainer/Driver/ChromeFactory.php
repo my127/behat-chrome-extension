@@ -21,7 +21,10 @@ final class ChromeFactory implements DriverFactory
      */
     public function configure(ArrayNodeDefinition $builder)
     {
-        $builder->children()->scalarNode('api_url')->end()->end();
+        $builder->children()
+            ->scalarNode('api_url')->end()
+            ->booleanNode('validate_certificate')->defaultTrue()->end()
+            ->end();
     }
 
     /**
@@ -29,7 +32,15 @@ final class ChromeFactory implements DriverFactory
      */
     public function buildDriver(array $config)
     {
-        return new Definition(ChromeDriver::class, [$config['api_url'], null, '%mink.base_url%']);
+        $validateCert = isset($config['validate_certificate']) ? $config['validate_certificate'] : true;
+        return new Definition(ChromeDriver::class, [
+            $config['api_url'],
+            null,
+            '%mink.base_url%',
+            [
+                'validateCertificate' => $validateCert
+            ]
+        ]);
     }
 
     /**
