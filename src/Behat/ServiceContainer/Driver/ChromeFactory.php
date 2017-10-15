@@ -24,6 +24,9 @@ final class ChromeFactory implements DriverFactory
         $builder->children()
             ->scalarNode('api_url')->end()
             ->booleanNode('validate_certificate')->defaultTrue()->end()
+            ->enumNode('download_behavior')
+                ->values(['allow', 'default', 'deny'])->defaultValue('default')->end()
+            ->scalarNode('download_path')->defaultValue('/tmp')->end()
             ->end();
     }
 
@@ -33,12 +36,16 @@ final class ChromeFactory implements DriverFactory
     public function buildDriver(array $config)
     {
         $validateCert = isset($config['validate_certificate']) ? $config['validate_certificate'] : true;
+        $downloadBehavior = $config['download_behavior'];
+        $downloadPath = $config['download_path'];
         return new Definition(ChromeDriver::class, [
             $config['api_url'],
             null,
             '%mink.base_url%',
             [
-                'validateCertificate' => $validateCert
+                'validateCertificate' => $validateCert,
+                'downloadBehavior' => $downloadBehavior,
+                'downloadPath' => $downloadPath,
             ]
         ]);
     }
