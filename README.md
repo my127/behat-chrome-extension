@@ -52,6 +52,46 @@ default:
                         api_url: "http://localhost:9222"
 ```
 
+## Configuration
+
+The following optional configuration settings are available
+
+### validate_certificate
+
+Default: true
+
+Set to false to ignore invalid ssl certificates.
+
+### download_behavior
+
+Default: falls back to browser configuration
+
+Set to 'allow' to allow downloads.
+
+### download_path
+
+Default: /tmp
+
+Set to a directory path where you would like files to be downloaded. Requires download_behavior: allow
+
+Example:
+
+```yaml
+default:
+    extensions:
+        DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+        Behat\MinkExtension:
+            browser_name: chrome
+            base_url: http://localhost
+            sessions:
+                default:
+                    chrome:
+                        api_url: "http://localhost:9222"
+                        download_behavior: allow
+                        download_path: /download
+                        validate_certificate: false
+```
+
 ## Contributing
 
 You are encouraged to fork this repository and contribute your own improvements.
