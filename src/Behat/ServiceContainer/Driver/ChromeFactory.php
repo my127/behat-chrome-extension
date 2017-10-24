@@ -27,6 +27,7 @@ final class ChromeFactory implements DriverFactory
             ->enumNode('download_behavior')
                 ->values(['allow', 'default', 'deny'])->defaultValue('default')->end()
             ->scalarNode('download_path')->defaultValue('/tmp')->end()
+            ->integerNode('socket_timeout')->defaultValue(5)->end()
             ->end();
     }
 
@@ -36,6 +37,7 @@ final class ChromeFactory implements DriverFactory
     public function buildDriver(array $config)
     {
         $validateCert = isset($config['validate_certificate']) ? $config['validate_certificate'] : true;
+        $socketTimeout = $config['socket_timeout'];
         $downloadBehavior = $config['download_behavior'];
         $downloadPath = $config['download_path'];
         return new Definition(ChromeDriver::class, [
@@ -44,6 +46,7 @@ final class ChromeFactory implements DriverFactory
             '%mink.base_url%',
             [
                 'validateCertificate' => $validateCert,
+                'socketTimeout' => $socketTimeout,
                 'downloadBehavior' => $downloadBehavior,
                 'downloadPath' => $downloadPath,
             ]
