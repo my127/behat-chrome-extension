@@ -64,7 +64,7 @@ Set to false to ignore invalid ssl certificates.
 
 ### socket_timeout
 
-Default: 5
+Default: 10
 
 Timeout in seconds before the HTTP or WebSocket connection to the chrome browser is considered dead.
 
