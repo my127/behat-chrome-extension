@@ -27,7 +27,7 @@ final class ChromeFactory implements DriverFactory
             ->enumNode('download_behavior')
                 ->values(['allow', 'default', 'deny'])->defaultValue('default')->end()
             ->scalarNode('download_path')->defaultValue('/tmp')->end()
-            ->integerNode('socket_timeout')->defaultValue(5)->end()
+            ->integerNode('socket_timeout')->defaultValue(10)->end()
             ->end();
     }
 
