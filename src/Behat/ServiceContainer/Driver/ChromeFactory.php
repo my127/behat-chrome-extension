@@ -41,7 +41,7 @@ final class ChromeFactory implements DriverFactory
         $downloadBehavior = $config['download_behavior'];
         $downloadPath = $config['download_path'];
         return new Definition(ChromeDriver::class, [
-            $config['api_url'],
+            $this->resolveApiUrl($config['api_url']),
             null,
             '%mink.base_url%',
             [
@@ -59,5 +59,16 @@ final class ChromeFactory implements DriverFactory
     public function supportsJavascript()
     {
         return true;
+    }
+
+    private function resolveApiUrl($url)
+    {
+        $host = parse_url($url, PHP_URL_HOST);
+
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return $url;
+        }
+
+        return str_replace($host, gethostbyname($host), $url);
     }
 }
