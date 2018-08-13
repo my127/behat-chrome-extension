@@ -1,6 +1,6 @@
 {
-    "name": "dmore/behat-chrome-extension",
-    "description": "Behat extension for controlling chrome without selenium",
+    "name": "my127/behat-chrome-extension",
+    "description": "FORK: (dmore/behat-chrome-extension) Behat extension for controlling chrome without selenium",
     "keywords": [
         "chrome",
         "behat",
